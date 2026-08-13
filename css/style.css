@@ -42,10 +42,22 @@
 
 html {
   scroll-behavior: smooth;
+  /* Мобильное меню (.main-nav) в закрытом состоянии сдвинуто за экран через
+     transform: translateX(100%) — по спецификации CSS Transforms такие "заэкранные"
+     элементы всё равно попадают в скроллируемую область страницы (transform не убирает
+     их из расчёта overflow, в отличие от простого свойства position). Из-за этого на
+     мобильных браузерах страница реально скроллилась вбок на пустоту — на телефоне это
+     выглядит как "всё съехало". overflow-x: hidden — стандартное решение именно для этого,
+     часто встречающегося паттерна off-canvas-меню. Проверено скриншот-бисекцией: без этого
+     правила `.bg-fx` (и любой другой position:fixed элемент) сообщал двойную ширину экрана.
+     На width: 100% ниже это не влияет — обрезается именно горизontal-переполнение. */
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
+  width: 100%;
+  overflow-x: hidden;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   /* Фон страницы теперь красит .bg-fx (фикс. слой с водяным знаком) — тело прозрачное,
      иначе оно перекрыло бы .bg-fx собственной сплошной заливкой. */
@@ -58,21 +70,33 @@ body {
 
 .bg-fx {
   position: fixed;
-  inset: 0;
+  /* top/right/bottom/left вместо inset:0 — на части мобильных браузеров (старые Android
+     WebView, некоторые версии Яндекс.Браузера) сокращённое свойство inset не поддерживается
+     и молча игнорируется, тогда fixed-слой перестаёт быть привязан к границам экрана и
+     "уезжает" вместе со своим содержимым — ровно то, что выглядит как криво разъехавшийся
+     сайт на телефоне. Длинная форма поддерживается везде. */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: -1;
   overflow: hidden;
   background: var(--bg);
   pointer-events: none;
 }
 .bg-fx__base {
+  /* Раньше размер задавался через vmax + фиксированную ширину/высоту с transform-центрированием —
+     на реальных мобильных экранах (проверено на профилях iPhone 13 и Pixel 5, у обоих плотность
+     пикселей больше 1) эта комбинация с position:fixed давала на порядок больший элемент, чем
+     видимый экран, и водяной знак разъезжался за края, ломая страницу. 100%/100% от родителя
+     (.bg-fx, уже прибит к границам экрана) — надёжный способ без этой проблемы, без vw/vmax. */
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 95vmax;
-  height: 95vmax;
-  transform: translate(-50%, -50%);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background-image: url("../assets/images/логотип.png");
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   /* Лёгкое размытие — лого фотореалистичное и детальное (шестерня, хром, текст), даже на
@@ -81,9 +105,10 @@ body {
   filter: blur(2px);
   opacity: 0.032;
   /* Круглая маска с плавным затуханием к краю — мягкое пятно-медальон в центре экрана,
-     а не сплошная заливка до самых краёв. */
-  mask-image: radial-gradient(circle at 50.2% 49.1%, #000 0%, #000 22%, transparent 55%);
-  -webkit-mask-image: radial-gradient(circle at 50.2% 49.1%, #000 0%, #000 22%, transparent 55%);
+     а не сплошная заливка до самых краёв. Проценты — от самого элемента (0–100% экрана),
+     поэтому не зависят от его абсолютного размера и стабильны на любом устройстве. */
+  mask-image: radial-gradient(circle at 50% 50%, #000 0%, #000 18%, transparent 48%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0%, #000 18%, transparent 48%);
 }
 
 img {
@@ -410,7 +435,10 @@ section[id] {
 }
 .hero-logo-glow {
   position: absolute;
-  inset: -4%;
+  top: -4%;
+  right: -4%;
+  bottom: -4%;
+  left: -4%;
   background: radial-gradient(circle, var(--red-soft) 0%, rgba(253, 236, 235, 0) 70%);
   border-radius: 50%;
 }
@@ -1115,7 +1143,10 @@ section[id] {
   }
   .main-nav {
     position: fixed;
-    inset: var(--header-h) 0 0 0;
+    top: var(--header-h);
+    right: 0;
+    bottom: 0;
+    left: 0;
     height: calc(100dvh - var(--header-h));
     background: var(--surface);
     flex-direction: column;
