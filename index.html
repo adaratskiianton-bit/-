@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЧИНА — автозапчасти для китайских грузовиков в Батайске</title>
+<meta name="description" content="Подбор автозапчастей для китайских грузовиков по марке, модели и категории. Только проверенные детали, профессиональный подбор, быстрая консультация.">
+<link rel="icon" href="assets/images/логотип.png" type="image/png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Фоновый водяной знак: статичный логотип, зафиксирован под всем контентом -->
+<div class="bg-fx" aria-hidden="true">
+  <div class="bg-fx__base"></div>
+</div>
+
+<!-- Иконочный спрайт: один набор SVG-символов, переиспользуемых через <use> по всей странице -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="icon-engine" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
+  <symbol id="icon-brakes" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></symbol>
+  <symbol id="icon-suspension" viewBox="0 0 24 24"><path d="M12 2v2M6 7l12 2-12 2 12 2-12 2 12 2M12 19v3"/></symbol>
+  <symbol id="icon-electrical" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></symbol>
+  <symbol id="icon-fuel" viewBox="0 0 24 24"><path d="M6 21V8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v13M4 21h12M14 9h2a2 2 0 0 1 2 2v4a1.5 1.5 0 0 0 3 0V9l-2-2"/></symbol>
+  <symbol id="icon-cabin" viewBox="0 0 24 24"><path d="M3 12c0-3 3-6 8-6h4a6 6 0 0 1 0 12H8c-3 0-5-1.5-5-6z"/><circle cx="14" cy="12" r="2"/></symbol>
+  <symbol id="icon-transmission" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><circle cx="16" cy="16" r="3"/><path d="M9 6V4M9 12v2M6 9H4M12 9h2M16 13v-2M16 19v2M13 16h-2M19 16h2"/></symbol>
+  <symbol id="icon-filters" viewBox="0 0 24 24"><path d="M4 4h16l-6 8v6l-4 2v-8L4 4z"/></symbol>
+  <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></symbol>
+  <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="icon-layers" viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></symbol>
+  <symbol id="icon-headset" viewBox="0 0 24 24"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="4" height="6" rx="1"/><rect x="17" y="13" width="4" height="6" rx="1"/><path d="M20 19a4 4 0 0 1-4 4h-2"/></symbol>
+  <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1 .36 1.98.68 2.92a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.16-1.16a2 2 0 0 1 2.11-.45c.94.32 1.92.55 2.92.68A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M12 22s7-7.16 7-12a7 7 0 1 0-14 0c0 4.84 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+  <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="icon-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 8.4 8.4 0 0 1-3.9-.94L3 20l1.02-4.06A8.42 8.42 0 0 1 3 11.5 8.5 8.5 0 0 1 11.5 3 8.5 8.5 0 0 1 21 11.5z"/></symbol>
+  <symbol id="icon-send" viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></symbol>
+</svg>
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="#hero" class="logo" aria-label="ЧИНА — на главную">
+      <img src="assets/images/логотип.png" alt="ЧИНА" class="logo-img" data-fallback-text="ЧИНА">
+    </a>
+
+    <nav class="main-nav" id="main-nav" aria-label="Основная навигация">
+      <a href="#about">О компании</a>
+      <a href="#brands">Марки</a>
+      <a href="#categories">Категории</a>
+      <a href="#catalog">Каталог</a>
+      <a href="#contacts">Контакты</a>
+      <a href="tel:+79001205161" class="nav-phone">
+        <svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg>
+        +7 (900) 120-51-61
+      </a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="tel:+79001205161" class="btn btn-primary btn-sm header-call">Позвонить</a>
+      <button type="button" class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="hero">
+    <div class="container hero-inner">
+      <div class="hero-content reveal">
+        <p class="eyebrow">Автозапчасти для китайских грузовиков</p>
+        <h1>Подберём деталь по марке, модели и категории</h1>
+        <p class="hero-lead">Только проверенные автозапчасти, профессиональный подбор и высокий
+          уровень клиентского сервиса. Работаем в Батайске и по всей России.</p>
+
+        <form class="hero-stepper" id="hero-stepper">
+          <div class="stepper-field">
+            <label for="stepper-brand">Марка грузовика</label>
+            <div class="select-wrap">
+              <select id="stepper-brand">
+                <option value="">Любая марка</option>
+                <option value="dayun">Dayun</option>
+                <option value="dongfeng">DongFeng</option>
+                <option value="faw">FAW</option>
+                <option value="foton">FOTON</option>
+                <option value="jac">JAC</option>
+                <option value="howo">HOWO (Sinotruk)</option>
+                <option value="sany">Sany</option>
+                <option value="shacman">SHACMAN</option>
+                <option value="sitrak">Sitrak</option>
+              </select>
+              <svg class="icon select-chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+            </div>
+          </div>
+          <div class="stepper-field">
+            <label for="stepper-category">Категория</label>
+            <div class="select-wrap">
+              <select id="stepper-category">
+                <option value="">Любая категория</option>
+                <option value="engine">Двигатель</option>
+                <option value="brakes">Тормозная система</option>
+                <option value="suspension">Подвеска</option>
+                <option value="electrical">Электрика</option>
+                <option value="fuel">Топливная система</option>
+                <option value="cabin">Кабина и оптика</option>
+                <option value="transmission">Трансмиссия</option>
+                <option value="filters">Фильтры</option>
+              </select>
+              <svg class="icon select-chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary stepper-submit">Подобрать</button>
+        </form>
+
+        <div class="hero-search">
+          <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+          <input type="search" id="hero-search-input" placeholder="Или найдите по названию / артикулу">
+          <button type="button" class="btn btn-ghost btn-sm" id="hero-search-btn">Найти</button>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="hero-logo-glow" aria-hidden="true"></div>
+        <div class="hero-logo-frame">
+          <img src="assets/images/логотип.png" alt="ЧИНА" class="hero-logo-img" data-fallback-text="ЧИНА">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">О компании</p>
+        <h2>Поставщик запчастей для китайской грузовой техники</h2>
+        <p class="section-lead">
+          «ЧИНА» — поставщик автозапчастей для китайских грузовых автомобилей в Батайске и
+          по всей России. Работаем с ключевыми марками, отбираем только проверенные детали и
+          помогаем быстро найти нужную запчасть — по марке, модели или категории узла.
+          <!-- TODO:CONTENT: уточнить формулировки и факты о компании -->
+        </p>
+      </div>
+
+      <div class="advantages">
+        <div class="advantage-card reveal">
+          <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-search"></use></svg>
+          <h3>Быстрый подбор</h3>
+          <p>Выбирайте марку и категорию — каталог сразу показывает подходящие позиции.</p>
+        </div>
+        <div class="advantage-card reveal">
+          <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-shield"></use></svg>
+          <h3>Только проверенные детали</h3>
+          <p>Работаем с надёжными запчастями, а не случайным набором аналогов.</p>
+        </div>
+        <div class="advantage-card reveal">
+          <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-layers"></use></svg>
+          <h3>Все ключевые марки</h3>
+          <p>SHACMAN, HOWO, FAW, FOTON, DongFeng, JAC и другие — в одном каталоге.</p>
+        </div>
+        <div class="advantage-card reveal">
+          <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-headset"></use></svg>
+          <h3>Консультация специалиста</h3>
+          <p>Не нашли деталь сами — поможем подобрать по телефону.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt" id="brands">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Марки</p>
+        <h2>Подбираем запчасти по марке грузовика</h2>
+        <p class="section-lead">Нажмите на марку — каталог ниже покажет только подходящие позиции.</p>
+      </div>
+      <div class="brands-list">
+        <button type="button" class="brand-chip reveal" data-brand="dayun">Dayun</button>
+        <button type="button" class="brand-chip reveal" data-brand="dongfeng">DongFeng</button>
+        <button type="button" class="brand-chip reveal" data-brand="faw">FAW</button>
+        <button type="button" class="brand-chip reveal" data-brand="foton">FOTON</button>
+        <button type="button" class="brand-chip reveal" data-brand="jac">JAC</button>
+        <button type="button" class="brand-chip reveal" data-brand="howo">HOWO<span class="brand-chip__sub">Sinotruk</span></button>
+        <button type="button" class="brand-chip reveal" data-brand="sany">Sany</button>
+        <button type="button" class="brand-chip reveal" data-brand="shacman">SHACMAN</button>
+        <button type="button" class="brand-chip reveal" data-brand="sitrak">Sitrak</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Категории</p>
+        <h2>Запчасти по узлам грузовика</h2>
+        <p class="section-lead">Выберите категорию — каталог ниже отфильтруется автоматически.</p>
+      </div>
+      <div class="categories-grid">
+        <button type="button" class="category-card reveal" data-category="engine">
+          <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-engine"></use></svg>
+          <span>Двигатель</span>
+        </button>
+        <button type="button" class="category-card reveal" data-category="brakes">
+          <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-brakes"></use></svg>
+          <span>Тормозная система</span>
+        </button>
+        <button type="button" class="category-card reveal" data-category="suspension">
+          <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-suspension"></use></svg>
+          <span>Подвеска</span>
+        </button>
+        <button type="button" class="category-card reveal" data-category="electrical">
+          <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-electrical"></use></svg>
+          <span>Электрика</span>
+        </button>
+        <button type="button" class="category-card reveal" data-category="fuel">
+          <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-fuel"></use></svg>
+          <span>Топливная система</span>
+        </button>
+        <button type="button" class="category-card reveal" data-category="cabin">
+          <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-cabin"></use></svg>
+          <span>Кабина и оптика</span>
+        </button>
+        <button type="button" class="category-card reveal" data-category="transmission">
+          <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-transmission"></use></svg>
+          <span>Трансмиссия</span>
+        </button>
+        <button type="button" class="category-card reveal" data-category="filters">
+          <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-filters"></use></svg>
+          <span>Фильтры</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt" id="catalog">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Каталог</p>
+        <h2>Продукция</h2>
+        <p class="section-lead">Цены ориентировочные — точную стоимость и наличие уточняйте у менеджера.</p>
+      </div>
+
+      <div class="catalog-toolbar reveal">
+        <div class="catalog-search">
+          <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+          <input type="search" id="catalog-search" placeholder="Поиск по названию или артикулу">
+        </div>
+        <div class="active-filters" id="active-filters" hidden>
+          <span class="active-filters__label">Фильтры:</span>
+          <span class="filter-chip" id="filter-chip-brand" hidden></span>
+          <span class="filter-chip" id="filter-chip-category" hidden></span>
+          <button type="button" class="filters-clear" id="filters-clear">Очистить всё</button>
+        </div>
+      </div>
+
+      <p class="catalog-count" id="catalog-count" aria-live="polite"></p>
+
+      <div class="products-grid" id="products-grid">
+
+        <article class="product-card reveal" data-name="Комплект тормозных колодок (передние)" data-category="brakes" data-brands="shacman,howo">
+          <div class="product-card__thumb"><svg class="icon icon-xl" aria-hidden="true"><use href="#icon-brakes"></use></svg></div>
+          <div class="product-card__body">
+            <span class="product-card__category">Тормозная система</span>
+            <h3 class="product-card__name">Комплект тормозных колодок (передние)</h3>
+            <p class="product-card__brands">SHACMAN, HOWO</p>
+            <div class="product-card__footer">
+              <span class="product-card__price">от 4 200 ₽<small>ориентировочно</small></span>
+              <button type="button" class="btn btn-primary btn-sm product-card__cta">Уточнить наличие</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" data-name="Воздушный фильтр двигателя" data-category="filters" data-brands="faw,foton">
+          <div class="product-card__thumb"><svg class="icon icon-xl" aria-hidden="true"><use href="#icon-filters"></use></svg></div>
+          <div class="product-card__body">
+            <span class="product-card__category">Фильтры</span>
+            <h3 class="product-card__name">Воздушный фильтр двигателя</h3>
+            <p class="product-card__brands">FAW, FOTON</p>
+            <div class="product-card__footer">
+              <span class="product-card__price">от 1 350 ₽<small>ориентировочно</small></span>
+              <button type="button" class="btn btn-primary btn-sm product-card__cta">Уточнить наличие</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" data-name="Масляный фильтр" data-category="filters" data-brands="dongfeng,jac">
+          <div class="product-card__thumb"><svg class="icon icon-xl" aria-hidden="true"><use href="#icon-filters"></use></svg></div>
+          <div class="product-card__body">
+            <span class="product-card__category">Фильтры</span>
+            <h3 class="product-card__name">Масляный фильтр</h3>
+            <p class="product-card__brands">DongFeng, JAC</p>
+            <div class="product-card__footer">
+              <span class="product-card__price">от 650 ₽<small>ориентировочно</small></span>
+              <button type="button" class="btn btn-primary btn-sm product-card__cta">Уточнить наличие</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" data-name="Амортизатор передней подвески" data-category="suspension" data-brands="shacman">
+          <div class="product-card__thumb"><svg class="icon icon-xl" aria-hidden="true"><use href="#icon-suspension"></use></svg></div>
+          <div class="product-card__body">
+            <span class="product-card__category">Подвеска</span>
+            <h3 class="product-card__name">Амортизатор передней подвески</h3>
+            <p class="product-card__brands">SHACMAN</p>
+            <div class="product-card__footer">
+              <span class="product-card__price">от 6 800 ₽<small>ориентировочно</small></span>
+              <button type="button" class="btn btn-primary btn-sm product-card__cta">Уточнить наличие</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" data-name="Генератор 24В" data-category="electrical" data-brands="howo,sitrak">
+          <div class="product-card__thumb"><svg class="icon icon-xl" aria-hidden="true"><use href="#icon-electrical"></use></svg></div>
+          <div class="product-card__body">
+            <span class="product-card__category">Электрика</span>
+            <h3 class="product-card__name">Генератор 24В</h3>
+            <p class="product-card__brands">HOWO, Sitrak</p>
+            <div class="product-card__footer">
+              <span class="product-card__price">от 12 500 ₽<small>ориентировочно</small></span>
+              <button type="button" class="btn btn-primary btn-sm product-card__cta">Уточнить наличие</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" data-name="ТНВД (топливный насос высокого давления)" data-category="fuel" data-brands="faw">
+          <div class="product-card__thumb"><svg class="icon icon-xl" aria-hidden="true"><use href="#icon-fuel"></use></svg></div>
+          <div class="product-card__body">
+            <span class="product-card__category">Топливная система</span>
+            <h3 class="product-card__name">ТНВД (топливный насос высокого давления)</h3>
+            <p class="product-card__brands">FAW</p>
+            <div class="product-card__footer">
+              <span class="product-card__price">от 28 000 ₽<small>ориентировочно</small></span>
+              <button type="button" class="btn btn-primary btn-sm product-card__cta">Уточнить наличие</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" data-name="Радиатор охлаждения двигателя" data-category="engine" data-brands="dayun,foton">
+          <div class="product-card__thumb"><svg class="icon icon-xl" aria-hidden="true"><use href="#icon-engine"></use></svg></div>
+          <div class="product-card__body">
+            <span class="product-card__category">Двигатель</span>
+            <h3 class="product-card__name">Радиатор охлаждения двигателя</h3>
+            <p class="product-card__brands">Dayun, FOTON</p>
+            <div class="product-card__footer">
+              <span class="product-card__price">от 15 400 ₽<small>ориентировочно</small></span>
+              <button type="button" class="btn btn-primary btn-sm product-card__cta">Уточнить наличие</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" data-name="Комплект сцепления" data-category="transmission" data-brands="shacman,howo">
+          <div class="product-card__thumb"><svg class="icon icon-xl" aria-hidden="true"><use href="#icon-transmission"></use></svg></div>
+          <div class="product-card__body">
+            <span class="product-card__category">Трансмиссия</span>
+            <h3 class="product-card__name">Комплект сцепления</h3>
+            <p class="product-card__brands">SHACMAN, HOWO</p>
+            <div class="product-card__footer">
+              <span class="product-card__price">от 22 000 ₽<small>ориентировочно</small></span>
+              <button type="button" class="btn btn-primary btn-sm product-card__cta">Уточнить наличие</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" data-name="Фара передняя (комплект)" data-category="cabin" data-brands="jac,dongfeng">
+          <div class="product-card__thumb"><svg class="icon icon-xl" aria-hidden="true"><use href="#icon-cabin"></use></svg></div>
+          <div class="product-card__body">
+            <span class="product-card__category">Кабина и оптика</span>
+            <h3 class="product-card__name">Фара передняя (комплект)</h3>
+            <p class="product-card__brands">JAC, DongFeng</p>
+            <div class="product-card__footer">
+              <span class="product-card__price">от 5 300 ₽<small>ориентировочно</small></span>
+              <button type="button" class="btn btn-primary btn-sm product-card__cta">Уточнить наличие</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" data-name="Стартер" data-category="electrical" data-brands="faw,sitrak">
+          <div class="product-card__thumb"><svg class="icon icon-xl" aria-hidden="true"><use href="#icon-electrical"></use></svg></div>
+          <div class="product-card__body">
+            <span class="product-card__category">Электрика</span>
+            <h3 class="product-card__name">Стартер</h3>
+            <p class="product-card__brands">FAW, Sitrak</p>
+            <div class="product-card__footer">
+              <span class="product-card__price">от 9 700 ₽<small>ориентировочно</small></span>
+              <button type="button" class="btn btn-primary btn-sm product-card__cta">Уточнить наличие</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" data-name="Рессора задняя" data-category="suspension" data-brands="howo,sany">
+          <div class="product-card__thumb"><svg class="icon icon-xl" aria-hidden="true"><use href="#icon-suspension"></use></svg></div>
+          <div class="product-card__body">
+            <span class="product-card__category">Подвеска</span>
+            <h3 class="product-card__name">Рессора задняя</h3>
+            <p class="product-card__brands">HOWO, Sany</p>
+            <div class="product-card__footer">
+              <span class="product-card__price">от 18 900 ₽<small>ориентировочно</small></span>
+              <button type="button" class="btn btn-primary btn-sm product-card__cta">Уточнить наличие</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal" data-name="Ремкомплект ТНВД" data-category="fuel" data-brands="shacman">
+          <div class="product-card__thumb"><svg class="icon icon-xl" aria-hidden="true"><use href="#icon-fuel"></use></svg></div>
+          <div class="product-card__body">
+            <span class="product-card__category">Топливная система</span>
+            <h3 class="product-card__name">Ремкомплект ТНВД</h3>
+            <p class="product-card__brands">SHACMAN</p>
+            <div class="product-card__footer">
+              <span class="product-card__price">от 7 200 ₽<small>ориентировочно</small></span>
+              <button type="button" class="btn btn-primary btn-sm product-card__cta">Уточнить наличие</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <p class="catalog-empty" id="catalog-empty" hidden>Ничего не найдено. Попробуйте изменить фильтры или запрос.</p>
+    </div>
+  </section>
+
+  <section class="section" id="contacts">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Контакты</p>
+        <h2>Свяжитесь с нами</h2>
+      </div>
+
+      <p class="interest-note" id="interest-note" hidden>
+        Вы интересовались позицией: <strong id="interest-note-text"></strong> — назовите её при звонке или в заявке.
+      </p>
+
+      <div class="contacts-grid">
+        <div class="contacts-info reveal">
+          <div class="contact-item">
+            <svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg>
+            <div>
+              <span class="contact-item__label">Телефон</span>
+              <a href="tel:+79001205161">+7 (900) 120-51-61</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>
+            <div>
+              <span class="contact-item__label">Адрес</span>
+              <p>г. Батайск, ул. Промышленная, 19Б</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <svg class="icon" aria-hidden="true"><use href="#icon-clock"></use></svg>
+            <div>
+              <span class="contact-item__label">Часы работы</span>
+              <p>Пн–Пт: 09:00–18:00<br>Сб, Вс: выходной</p>
+            </div>
+          </div>
+          <a href="tel:+79001205161" class="btn btn-primary contacts-cta">Позвонить сейчас</a>
+        </div>
+
+        <div class="contacts-map reveal">
+          <iframe
+            title="Карта — г. Батайск, ул. Промышленная, 19Б"
+            src="https://www.google.com/maps?q=Батайск,+улица+Промышленная,+19Б&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-logo">
+      <img src="assets/images/логотип.png" alt="ЧИНА" class="footer-logo-img" data-fallback-text="ЧИНА">
+    </div>
+    <nav class="footer-nav" aria-label="Ссылки по разделам">
+      <a href="#about">О компании</a>
+      <a href="#brands">Марки</a>
+      <a href="#categories">Категории</a>
+      <a href="#catalog">Каталог</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <p class="footer-copy">© <span id="year"></span> «ЧИНА». Автозапчасти для китайских грузовиков.</p>
+  </div>
+</footer>
+
+<!-- Чат-помощник: работает полностью на клиенте, без сервера — заранее заданные
+     вопросы/ответы + простой поиск по ключевым словам в свободном тексте -->
+<div class="chat-widget">
+  <button type="button" class="chat-toggle" id="chat-toggle" aria-expanded="false" aria-controls="chat-panel">
+    <svg class="icon" aria-hidden="true"><use href="#icon-chat"></use></svg>
+    <span class="chat-toggle__label">Есть вопрос?</span>
+  </button>
+
+  <div class="chat-panel" id="chat-panel" hidden>
+    <div class="chat-panel__header">
+      <div class="chat-panel__title">
+        <span class="chat-panel__badge" aria-hidden="true">Ч</span>
+        <div>
+          <strong>Помощник «ЧИНА»</strong>
+          <span class="chat-panel__status">Отвечает по частым вопросам</span>
+        </div>
+      </div>
+      <button type="button" class="chat-close" id="chat-close" aria-label="Закрыть чат">
+        <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+      </button>
+    </div>
+
+    <div class="chat-panel__body" id="chat-body" aria-live="polite"></div>
+
+    <div class="chat-panel__quick" id="chat-quick"></div>
+
+    <form class="chat-panel__form" id="chat-form">
+      <input type="text" id="chat-input" placeholder="Напишите вопрос…" autocomplete="off" aria-label="Ваш вопрос">
+      <button type="submit" class="btn btn-primary btn-sm" aria-label="Отправить">
+        <svg class="icon" aria-hidden="true"><use href="#icon-send"></use></svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
